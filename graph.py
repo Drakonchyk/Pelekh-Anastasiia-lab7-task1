@@ -46,7 +46,10 @@ def is_edge_in_graph(graph, edge):
     >>> is_edge_in_graph({1: [2, 5], 2: [1, 4], 3: [4], 4: [2, 3], 5: [1]}, (3, 1))
     False
     """
-    return edge[1] in graph[edge[0]]
+    if edge[0] in graph:
+        if edge[1] in graph[edge[0]]:
+            return True
+    return False
 
 
 def add_edge(graph, edge):
@@ -79,14 +82,20 @@ def del_edge(graph, edge):
     Delete an edge from the graph and return a new graph.
     >>> del_edge({1: [2, 5], 2: [1, 4], 3: [4], 4: [2, 3], 5: [1]}, (2, 4))
     {1: [2, 5], 2: [1], 3: [4], 4: [3], 5: [1]}
+    >>> del_edge(({1: [2], 2: [1]}, (1, 3)))
+
+    >>> del_edge(({1: [2], 2: [1]}, (3, 1)))
+
+    >>> del_edge(({1: [2, 5], 2: [1, 4], 3: [4], 4: [2, 3], 5: [1]}, (2, 5)))
     """
+
     first_edge = edge[0]
     second_edge = edge[1]
 
-    if first_edge in graph:
+    if first_edge in graph and second_edge in graph[first_edge]:
         graph[first_edge].remove(second_edge)
 
-    if second_edge in graph:
+    if second_edge in graph and first_edge in graph[second_edge]:
         graph[second_edge].remove(first_edge)
 
     return graph
@@ -108,10 +117,11 @@ def del_node(graph, node):
     >>> del_node({1: [2, 5], 2: [1, 4], 3: [4], 4: [2, 3], 5: [1]}, 4)
     {1: [2, 5], 2: [1], 3: [], 5: [1]}
     """
-    del graph[node]
-    for values in graph:
-        if node in graph[values]:
-            graph[values].remove(node)
+    if node in graph:
+        del graph[node]
+        for key in graph:
+            if node in graph[key]:
+                graph[key].remove(node)
     return graph
 
 def convert_to_dot(graph):
@@ -131,3 +141,5 @@ def convert_to_dot(graph):
 if __name__ == '__main__':
     import doctest
     print(doctest.testmod())
+
+    is_edge_in_graph({1: [2], 2: [1], 3: [4], 4: [3], 6: [7], 7: [6]}, (5, 1))

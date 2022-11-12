@@ -18,6 +18,7 @@ def del_edge(graph, edge):
 
     return graph
 
+
 if __name__ == '__main__':
     import doctest
     print(doctest.testmod())

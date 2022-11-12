@@ -25,7 +25,6 @@ def to_edge_dict(edge_list):
 
     return dictionary
 
-
 if __name__ == '__main__':
     import doctest
     print(doctest.testmod())

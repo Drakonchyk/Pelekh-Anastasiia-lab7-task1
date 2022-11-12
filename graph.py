@@ -141,5 +141,3 @@ def convert_to_dot(graph):
 if __name__ == '__main__':
     import doctest
     print(doctest.testmod())
-
-    is_edge_in_graph({1: [2], 2: [1], 3: [4], 4: [3], 6: [7], 7: [6]}, (5, 1))

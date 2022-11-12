@@ -13,6 +13,7 @@ def del_node(graph, node):
             graph[values].remove(node)
     return graph
 
+
 if __name__ == '__main__':
     import doctest
     print(doctest.testmod())

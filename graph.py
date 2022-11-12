@@ -14,6 +14,7 @@ def get_graph_from_file(file_name):
             list_coords.append([int(line[0]), int(line[2])])
     return list_coords
 
+
 if __name__ == '__main__':
     import doctest
     print(doctest.testmod())
